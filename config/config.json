@@ -1,7 +1,7 @@
 {
     "APPLICATION_TITLE": "Flask",
     "DEBUG": true,
-    "SECRET_KEY": "A super-secret key",
+    "SECRET_KEY": "a3af94dbd21c266ce08e34750420b67bfef6f7fe9190b4991c8991e495eb600b",
     "JWT_TOKEN_LOCATION": "headers",
     "JWT_ACCESS_TOKEN_EXPIRES": 30,
     "JWT_REFRESH_TOKEN_EXPIRES": 60
