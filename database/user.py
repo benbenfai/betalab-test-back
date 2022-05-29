@@ -74,6 +74,9 @@ class UserTool:
         cur.execute(sql)
         result = cur.fetchall()
         for item in result:
-            users.append(UserModel(item[0],item[1],item[2],item[3],item[4],item[5],item[6],item[7],item[8]))
+            #user = UserTool(item[1], item[2], item[3])
+            #user = UserTool()
+            #user.id = item[0]
+            users.append(item)
         cur.close()
         return users
