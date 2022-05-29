@@ -30,13 +30,6 @@ class UserTool:
         authdb.commit()
         cur.close()
 
-    def delete_user(self):
-        cur = authdb.cursor()
-        sql = "delete from user where userID='{0}'".format(self.userID)
-        cur.execute(sql)
-        authdb.commit()
-        cur.close()
-
     def get_user(username):
         user = None
         cur = authdb.cursor()
@@ -51,6 +44,7 @@ class UserTool:
         cur.close()
         return user
 
+    """
     def get_email(email):
         user = None
         cur = authdb.cursor()
@@ -64,6 +58,7 @@ class UserTool:
         user.userID = result[0]
         cur.close()
         return user
+    """
 
     def get_all_user():
 

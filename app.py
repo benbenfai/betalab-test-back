@@ -28,5 +28,11 @@ api.add_resource(userinfo, '/api/auth/userinfo')
 api.add_resource(logout, '/api/auth/logout')
 api.add_resource(refresh_token, '/api/auth/refresh')
 
+@app.after_request
+def apply_caching(response):
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["HTTP-HEADER"] = "VALUE"
+    return response
+
 if __name__ == "__main__":
     app.run()
