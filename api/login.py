@@ -4,15 +4,10 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 from flask_restful import Resource
 
 from database.user import UserTool
-from untity.encry import Tool,Model
-from untity.auth import auth_required, authenticate_user, get_authenticated_user, auth_refresh_required, deauthenticate_user, refresh_authentication
+from untity.encry import getdata,encrypt
+from untity.auth import auth_required, authenticate_user, get_authenticated_user, auth_refresh_required, deauthenticate_user
 
-from schema.user_schema import LoginSchema,registerSchema
-
-encrypt = Model()
-login_schema = LoginSchema(many=False)
-register_schema = registerSchema(many=False)
-getdata = Tool()
+from schema.user_schema import login_schema,register_schema
 
 class login(Resource):
     

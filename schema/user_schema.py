@@ -19,3 +19,6 @@ class registerSchema(ma.Schema):
     phone = fields.Str(required=True)
     picture = fields.Str(required=True) 
     company = fields.Str(required=True)
+
+login_schema = LoginSchema(many=False)
+register_schema = registerSchema(many=False)

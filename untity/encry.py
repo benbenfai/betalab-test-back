@@ -17,3 +17,6 @@ class Model:
 
     def verify_hash(self,password, hash):
         return sha256.verify(password, hash)
+
+getdata = Tool()
+encrypt = Model()

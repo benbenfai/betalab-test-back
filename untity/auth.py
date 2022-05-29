@@ -6,9 +6,7 @@ from flask_jwt_extended import (
 )
 
 from database.user import UserTool
-from untity.encry import Model
-
-encrypt = Model()
+from untity.encry import encrypt
 
 class AuthenticationError(Exception):
     """Base Authentication Exception"""
@@ -67,12 +65,6 @@ def get_authenticated_user():
 def deauthenticate_user():
     
     identity = get_jwt_identity()
-
-def refresh_authentication():
-
-    user = get_authenticated_user()
-
-    return create_access_token(identity=user['username'])
 
 def auth_required(func):
 

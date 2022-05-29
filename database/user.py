@@ -16,12 +16,20 @@ class UserModel:
 
 class UserTool:
 
+    # should a try except there for error catch and a final stage ensure to close the connection
+    # a db connection pool would be better
+
     def add_user(self, username, password, email, address, phone, picture, company):
-        cur = authdb.cursor()
-        sql = "insert into user (username,password,email,enable,address,phone,picture,company) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')".format(username,password,email,1,address,phone,picture,company)
-        cur.execute(sql)
-        authdb.commit()
-        cur.close()
+        try:
+            cur = authdb.cursor()
+            try:
+                sql = "insert into user (username,password,email,enable,address,phone,picture,company) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')".format(username,password,email,1,address,phone,picture,company)
+                cur.execute(sql)
+            except:
+                authdb.rollback()
+            authdb.commit()
+        finally:
+            cur.close()
 
     def update_user(self):
         cur = authdb.cursor()
