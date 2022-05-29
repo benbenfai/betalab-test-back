@@ -1,29 +1,24 @@
 from untity.database import authdb
+from dataclasses import dataclass
 
+@dataclass
 class UserModel:
 
-    userID = ''
-    username = ''
-    password = ''
-    email = ''
-    enable = '1'
-    address = ''
-    phone = ''
-    picture = '' 
-    company = ''
+    userID: int
+    username: str
+    password: str
+    email: str
+    enable: int
+    address: str
+    phone: str
+    picture: str
+    company: str
 
-    def __init__(self, username, password, email, address, phone, picture, conmpany):
-        self.username = username
-        self.password = password
-        self.email = email
-        self.address = address
-        self.phone = phone
-        self.picture = picture
-        self.conmpany = conmpany
+class UserTool:
 
-    def add_user(self):
+    def add_user(self, username, password, email, address, phone, picture, company):
         cur = authdb.cursor()
-        sql = "insert into user (username,password,email,enable,address,phone,picture,company) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')".format(self.username,self.password,self.email,self.enable,self.address,self.phone,self.picture,self.company)
+        sql = "insert into user (username,password,email,enable,address,phone,picture,company) values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')".format(username,password,email,1,address,phone,picture,company)
         cur.execute(sql)
         authdb.commit()
         cur.close()
@@ -50,8 +45,9 @@ class UserModel:
         result = cur.fetchone()
         if result is None:
             return None
-        user = UserModel(result[2],result[1],result[3])
-        user.userID = result[0]
+
+        user = UserModel(result[0],result[1],result[2],result[3],result[4],result[5],result[6],result[7],result[8])
+
         cur.close()
         return user
 
@@ -63,21 +59,21 @@ class UserModel:
         result = cur.fetchone()
         if result is None:
             return None
-        user = UserModel(result[2],result[1],result[3])
+        #user = UserTool(result[2],result[1],result[3])
+        user = UserTool()
         user.userID = result[0]
         cur.close()
         return user
 
-    def get_all_user(self):
+    def get_all_user():
 
         users = []
 
         cur = authdb.cursor()
-        sql = "select * from user"
-        result = cur.execute(sql)
+        sql = "select username, enable from user"
+        cur.execute(sql)
+        result = cur.fetchall()
         for item in result:
-            user = UserModel(item[1], item[2], item[3])
-            user.id = item[0]
-            users.append(user)
+            users.append(UserModel(item[0],item[1],item[2],item[3],item[4],item[5],item[6],item[7],item[8]))
         cur.close()
         return users
