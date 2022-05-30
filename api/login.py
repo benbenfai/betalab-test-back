@@ -8,14 +8,20 @@ from untity.encry import getdata,encrypt
 from untity.auth import auth_required, authenticate_user, get_authenticated_user, auth_refresh_required, deauthenticate_user
 
 from schema.user_schema import login_schema,register_schema
+from marshmallow import ValidationError
 
 class login(Resource):
     
     def post(self):
 
         try:
-
-            result = login_schema.load(getdata.get_param())
+            
+            try:
+                result = login_schema.load(getdata.get_param())
+            except ValidationError as err:
+                return make_response(jsonify(
+                    err.messages
+                    ),400)
 
             access_token, refresh_token = authenticate_user(result['username'], result['password'])
 
@@ -32,7 +38,12 @@ class Registration(Resource):
 
     def post(self):
 
-        result = register_schema.load(getdata.get_param())
+        try:
+            result = register_schema.load(getdata.get_param())
+        except ValidationError as err:
+            return make_response(jsonify(
+                err.messages
+                ),400)
 
         user = UserTool.get_user(result['username']) 
 
